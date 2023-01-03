@@ -11,6 +11,9 @@ import {
     selectIsCollapsedCheckoutPanelOpen,
     toggleIsCollapsedCheckoutPanelOpen,
     selectSelectedOffer,
+    setSelectedDollarAmount,
+    CheckoutGiftCard,
+    selectSelectedDollarAmount,
 } from '../../slices/checkout-slice';
 import { Overlay } from '../common';
 
@@ -20,6 +23,7 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
     const isCollapsedCheckoutPanelOpen = useAppSelector(selectIsCollapsedCheckoutPanelOpen);
     const isCheckoutPanelCollapsedView = useAppSelector(selectIsCheckoutPanelCollapsed);
     const isSelectSelectedOfferPresent = useAppSelector(selectSelectedOffer);
+    const selectedGiftCard = useAppSelector(selectSelectedDollarAmount);
     const dispatch = useDispatch<AppDispatch>();
     const [transition, toggleTransition] = useTransition();
 
@@ -36,6 +40,10 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
         }
     };
 
+    const setSelectedPrizeValue = (dollarAmount: CheckoutGiftCard) => {
+        dispatch(setSelectedDollarAmount(dollarAmount));
+    };
+
     useEffect(() => {
         toggleTransition(isCollapsedCheckoutPanelOpen);
     }, [isCollapsedCheckoutPanelOpen]);
@@ -47,7 +55,11 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
             )}
 
             <section className={classes}>
-                <CheckoutPanelView selectedOffer={isSelectSelectedOfferPresent} />
+                <CheckoutPanelView
+                    onClickHandler={(dollarAmount: CheckoutGiftCard): void => setSelectedPrizeValue(dollarAmount)}
+                    selectedOffer={isSelectSelectedOfferPresent}
+                    selectedGiftCard={selectedGiftCard}
+                />
                 <CheckoutConfirmationPanelView />
             </section>
         </>
