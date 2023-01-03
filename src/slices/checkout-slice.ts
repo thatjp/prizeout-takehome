@@ -44,6 +44,8 @@ export const selectLoading = ({ checkout: { loading } }: RootState): boolean => 
 
 export const selectCheckoutView = ({ checkout: { view } }: RootState): ViewEnum => view;
 
+export const selectSelectedOffer = ({ checkout: { selectedOffer } }: RootState): PrizeoutOffer => selectedOffer;
+
 export const selectIsCollapsedCheckoutPanelOpen = ({
     checkout: { isCollapsedCheckoutPanelOpen },
 }: RootState): boolean => isCollapsedCheckoutPanelOpen;
