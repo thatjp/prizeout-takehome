@@ -12,6 +12,7 @@ export interface PanelProps {
     selectedOffer: any;
     onClickHandler: (dollarAmount: CheckoutGiftCard) => void;
     selectedGiftCard: CheckoutGiftCard;
+    onAlertHandler: (message: string, alertType: string) => void;
 }
 
 const calcdBonusTotal = (total: number, bonus: number) => {
@@ -22,12 +23,12 @@ const CheckoutPanelView: React.FC<PanelProps> = ({
     selectedOffer,
     onClickHandler,
     selectedGiftCard,
+    onAlertHandler,
 }): React.ReactElement => {
     return (
         <section className="checkout">
             <div className="grid grid--top-bottom grid--stretch-top">
                 <div className="grid__item">
-                    <section className="checkout__brand">Display Gift Card Here</section>
                     {selectedOffer ? <GiftCard name={selectedOffer.name} imgUrl={selectedOffer.image_url} /> : null}
                 </div>
                 <div className="grid__item">
@@ -74,7 +75,7 @@ const CheckoutPanelView: React.FC<PanelProps> = ({
                                 </div>
                             </div>
                         ) : null}
-                        <CheckoutButton />
+                        <CheckoutButton checkoutData={selectedGiftCard} onAlertHandler={onAlertHandler} />
                     </section>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import Classnames from 'classnames';
 import CheckoutPanelView from './checkout/checkout';
 import CheckoutConfirmationPanelView from './checkout-confirmation/checkout-confirmation';
 import { useAppSelector } from '../../hooks';
-import { selectIsCheckoutPanelCollapsed } from '../../slices/common-slice';
+import { selectIsCheckoutPanelCollapsed, setAlertState, selectAlertState } from '../../slices/common-slice';
 import useTransition from 'react-transition-state';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
@@ -15,7 +15,7 @@ import {
     CheckoutGiftCard,
     selectSelectedDollarAmount,
 } from '../../slices/checkout-slice';
-import { Overlay } from '../common';
+import { Overlay, Alert } from '../common';
 
 import './checkout-panel.less';
 
@@ -23,6 +23,7 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
     const isCollapsedCheckoutPanelOpen = useAppSelector(selectIsCollapsedCheckoutPanelOpen);
     const isCheckoutPanelCollapsedView = useAppSelector(selectIsCheckoutPanelCollapsed);
     const isSelectSelectedOfferPresent = useAppSelector(selectSelectedOffer);
+    const isAlertState = useAppSelector(selectAlertState);
     const selectedGiftCard = useAppSelector(selectSelectedDollarAmount);
     const dispatch = useDispatch<AppDispatch>();
     const [transition, toggleTransition] = useTransition();
@@ -44,9 +45,24 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
         dispatch(setSelectedDollarAmount(dollarAmount));
     };
 
+    const setAlertStatus = (message: string, alertType: 'error' | 'warning' | 'success' | undefined) => {
+        dispatch(
+            setAlertState({
+                alertType,
+                message,
+            }),
+        );
+    };
+
+    const renderCheckoutConfirmation = (checkoutSuccess: string) => {
+        if (checkoutSuccess) {
+            return <CheckoutConfirmationPanelView />;
+        }
+    };
+
     useEffect(() => {
         toggleTransition(isCollapsedCheckoutPanelOpen);
-    }, [isCollapsedCheckoutPanelOpen]);
+    }, [isCollapsedCheckoutPanelOpen, isAlertState]);
 
     return (
         <>
@@ -57,10 +73,14 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
             <section className={classes}>
                 <CheckoutPanelView
                     onClickHandler={(dollarAmount: CheckoutGiftCard): void => setSelectedPrizeValue(dollarAmount)}
+                    onAlertHandler={(message: string, alertType: 'error' | 'warning' | 'success' | undefined): void =>
+                        setAlertStatus(message, alertType)
+                    }
                     selectedOffer={isSelectSelectedOfferPresent}
                     selectedGiftCard={selectedGiftCard}
                 />
-                <CheckoutConfirmationPanelView />
+
+                {renderCheckoutConfirmation(isAlertState?.alertType)}
             </section>
         </>
     );

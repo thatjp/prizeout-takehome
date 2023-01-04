@@ -23,6 +23,7 @@
     "@sentry/tracing": "6.9.0",
     "@trendyol-js/react-carousel": "^2.0.1",
     "axios": "0.21.1",
+    "axios-mock-adapter": "^1.21.2",
     "babel-plugin-prismjs": "2.0.1",
     "common-tags": "1.8.0",
     "html-react-parser": "1.2.4",
