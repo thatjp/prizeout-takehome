@@ -15,7 +15,7 @@ import {
     CheckoutGiftCard,
     selectSelectedDollarAmount,
 } from '../../slices/checkout-slice';
-import { Overlay, Alert } from '../common';
+import { Overlay } from '../common';
 
 import './checkout-panel.less';
 
@@ -62,7 +62,7 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
 
     useEffect(() => {
         toggleTransition(isCollapsedCheckoutPanelOpen);
-    }, [isCollapsedCheckoutPanelOpen, isAlertState]);
+    }, [isCollapsedCheckoutPanelOpen]);
 
     return (
         <>

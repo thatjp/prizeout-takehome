@@ -1,6 +1,7 @@
 @import '../../../utils/styles/mixins.less';
 
 .button {
+	@x-small-padding: .5rem .5rem;
 	@small-padding: .5rem 1.25rem;
 	@medium-padding: .75rem 2.5rem;
 	
@@ -16,6 +17,11 @@
 	@secondary-hover-border-color: var(--color-grey-100);
 	@secondary-active-background-color: var(--color-grey-200);
 	@secondary-active-border-color: var(--color-grey-200);
+
+	@tertiary-background-color: var(--color-grey-200);
+	@tertiary-color: var(--color-grey-900);
+	@tertiary-hover-background-color: var(--color-primary);
+	@tertiary-active-background-color: var(--color-blue-500);
 	
 	@confirm-background-color: var(--color-blue-700);
 	@confirm-color: var(--color-white);
@@ -109,6 +115,22 @@
 			border-color: @secondary-active-border-color;
 		}
 	}
+
+	&--tertiary {
+		background-color: @tertiary-background-color;
+		color: @tertiary-color;
+		border-radius: var(--border-radius-tertiary);
+
+		&:hover {
+			background-color: @tertiary-hover-background-color;
+			color: var(--color-grey-100)
+		}
+		
+		&:active {
+			background-color: @tertiary-active-background-color;
+			
+		}
+	}
 	
 	&--confirm {
 		background-color: @confirm-background-color;
@@ -124,6 +146,12 @@
 		}
 	}
 		
+	&--x-small {
+		border-radius: var(--border-radius-tertiary);
+		font-size: var(--font-size-s);
+		padding: @x-small-padding;
+	}
+
 	&--small {
 		border-radius: var(--border-radius-primary);
 		font-size: var(--font-size-s);

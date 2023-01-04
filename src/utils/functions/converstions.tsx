@@ -3,3 +3,7 @@ export const centToDollar: (cents: number) => void = (cents) =>
         currency: 'USD',
         style: 'currency',
     });
+
+export const calcBonusTotal = (total: number, bonus: number) => {
+    return (bonus / 100) * total;
+};
