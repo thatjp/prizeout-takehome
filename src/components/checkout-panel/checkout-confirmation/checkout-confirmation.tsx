@@ -6,15 +6,23 @@ import { ViewEnum } from '../../../slices/checkout-slice';
 
 import './checkout-confirmation.less';
 
-const CheckoutConfirmationPanelView: React.FC<SetViewProps> = ({ setView }): React.ReactElement => {
+interface SetViewPropsExtended extends SetViewProps {
+    closeCheckoutPanel: () => void;
+}
+
+const CheckoutConfirmationPanelView: React.FC<SetViewPropsExtended> = ({
+    setView,
+    closeCheckoutPanel,
+}): React.ReactElement => {
     const handleClick = (viewType: ViewEnum) => {
+        closeCheckoutPanel();
         setView(viewType);
     };
 
     return (
         <section className="checkout-confirmation">
             <div>
-                <h1>Thank you for your purchase!</h1>
+                <h2>Checkout Confirmation</h2>
                 <Button
                     ariaLabel=""
                     onClick={() => handleClick('checkout')}

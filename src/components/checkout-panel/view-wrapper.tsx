@@ -8,9 +8,9 @@ import { AppDispatch } from '../../store';
 import { selectIsCheckoutPanelCollapsed } from '../../slices/common-slice';
 
 export interface SetViewProps {
-    isCheckoutPanelCollapsedView: boolean;
-    isVisible: boolean;
-    setView: (view: ViewEnum) => void;
+    isCheckoutPanelCollapsedView?: boolean;
+    isVisible?: boolean;
+    setView?: (view: ViewEnum) => void;
 }
 
 export function checkoutPanelViewWrapper<P>(

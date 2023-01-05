@@ -14,6 +14,7 @@ import {
     setSelectedDollarAmount,
     CheckoutGiftCard,
     selectSelectedDollarAmount,
+    setSelectedOffer,
 } from '../../slices/checkout-slice';
 
 import './checkout-panel.less';
@@ -34,6 +35,8 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
     );
 
     const closeCheckoutPanel = () => {
+        dispatch(setSelectedDollarAmount(null));
+        dispatch(setSelectedOffer(null));
         if (isCollapsedCheckoutPanelOpen) {
             dispatch(toggleIsCollapsedCheckoutPanelOpen());
         }
@@ -55,7 +58,7 @@ export const CheckoutPanel: React.FC = (): React.ReactElement => {
                     selectedOffer={isSelectSelectedOfferPresent}
                     selectedGiftCard={selectedGiftCard}
                 />
-                <CheckoutConfirmationPanelView />
+                <CheckoutConfirmationPanelView closeCheckoutPanel={() => closeCheckoutPanel()} />
             </section>
         </>
     );

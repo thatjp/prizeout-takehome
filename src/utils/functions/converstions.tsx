@@ -4,6 +4,6 @@ export const centToDollar: (cents: number) => void = (cents) =>
         style: 'currency',
     });
 
-export const calcBonusTotal = (total: number, bonus: number) => {
+export const calcBonusTotal = (total: number, bonus: number): number => {
     return (bonus / 100) * total;
 };
