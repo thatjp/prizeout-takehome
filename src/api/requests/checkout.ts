@@ -1,9 +1,10 @@
 import axios from '../axios';
+import { ExtendedCheckoutGiftCard } from '../../slices/checkout-slice';
 
 /*--------------------------------------------------
 Create New Checkout
 --------------------------------------------------*/
-export const postNewCheckout = async (reqData: any) => {
+export const postNewCheckout = async (reqData: ExtendedCheckoutGiftCard) => {
     try {
         const response = await axios.post(`/order/123`, reqData, {
             headers: {

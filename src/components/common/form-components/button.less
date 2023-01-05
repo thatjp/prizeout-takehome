@@ -21,7 +21,7 @@
 	@tertiary-background-color: var(--color-grey-200);
 	@tertiary-color: var(--color-grey-900);
 	@tertiary-hover-background-color: var(--color-primary);
-	@tertiary-active-background-color: var(--color-blue-500);
+	@tertiary-active-background-color: var(--color-blue-300);
 	
 	@confirm-background-color: var(--color-blue-700);
 	@confirm-color: var(--color-white);
@@ -127,8 +127,12 @@
 		}
 		
 		&:active {
-			background-color: @tertiary-active-background-color;
-			
+			background-color: @tertiary-active-background-color;	
+		}
+		
+		&:focus {
+			background-color: @tertiary-active-background-color;	
+			color: var(--color-grey-100)
 		}
 	}
 	

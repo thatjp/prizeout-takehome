@@ -1,28 +1,39 @@
 import React from 'react';
 import { Button } from '../../common';
-import { CheckoutGiftCard } from '../../../slices/checkout-slice';
+import { CheckoutGiftCard, setCheckoutView, ExtendedCheckoutGiftCard } from '../../../slices/checkout-slice';
 import { postNewCheckout } from '../../../api/requests';
+import { toggleIsLoading } from '../../../slices/common-slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../store';
 
 interface CheckoutButton {
-    checkoutData: CheckoutGiftCard;
-    onAlertHandler: (message: string, alertType: string) => void;
+    checkoutData: ExtendedCheckoutGiftCard;
+    offerName?: string;
 }
 
-const CheckoutButton: React.FC<CheckoutButton> = ({ checkoutData, onAlertHandler }): React.ReactElement => {
+const CheckoutButton: React.FC<CheckoutButton> = ({ offerName, checkoutData }): React.ReactElement => {
     const buttonText = 'Prizeout Gift Card';
-    const buttonHandler = async (checkoutData: CheckoutGiftCard) => {
-        const resp = await postNewCheckout(checkoutData);
+    const dispatch = useDispatch<AppDispatch>();
+    const buttonHandler = async (offerName: string, checkoutData: CheckoutGiftCard) => {
+        const combinedCheckoutData = {
+            ...checkoutData,
+            offerName,
+        };
+        dispatch(toggleIsLoading());
+        const resp = await postNewCheckout(combinedCheckoutData);
         if (resp.status === 200) {
-            onAlertHandler('Order has been Successfully placed!', 'success');
+            dispatch(toggleIsLoading());
+            dispatch(setCheckoutView('checkout-confirmation'));
         }
     };
 
     return (
         <>
             <Button
+                isDisabled={checkoutData === null ? true : false}
                 ariaLabel="Prizeout your gift card"
                 color={`primary`}
-                onClick={() => buttonHandler(checkoutData)}
+                onClick={() => buttonHandler(offerName, checkoutData)}
                 size="medium"
                 text={buttonText}
                 type="submit"

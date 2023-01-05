@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { clearConfigCache } from 'prettier';
 import type { RootState } from '../store';
 
-interface AlertState {
+export interface AlertState {
     message: string;
     alertType: 'error' | 'warning' | 'success' | undefined;
 }

@@ -10,6 +10,10 @@ export interface CheckoutGiftCard {
     value_in_cents: number;
 }
 
+export interface ExtendedCheckoutGiftCard extends CheckoutGiftCard {
+    offerName?: string;
+}
+
 export interface CheckoutSlice {
     isCollapsedCheckoutPanelOpen: boolean;
     loading: boolean;

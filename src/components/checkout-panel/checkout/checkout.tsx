@@ -12,14 +12,12 @@ export interface PanelProps {
     selectedOffer: any;
     onClickHandler: (dollarAmount: CheckoutGiftCard) => void;
     selectedGiftCard: CheckoutGiftCard;
-    onAlertHandler: (message: string, alertType: 'error' | 'warning' | 'success' | undefined) => void;
 }
 
 const CheckoutPanelView: React.FC<PanelProps> = ({
     selectedOffer,
     onClickHandler,
     selectedGiftCard,
-    onAlertHandler,
 }): React.ReactElement => {
     return (
         <section className="checkout">
@@ -30,7 +28,7 @@ const CheckoutPanelView: React.FC<PanelProps> = ({
                 <div className="grid__item">
                     <CheckoutPayouts selectedOffer={selectedOffer} onClickHandler={onClickHandler} />
                     <CheckoutCalculations />
-                    <CheckoutButton checkoutData={selectedGiftCard} onAlertHandler={onAlertHandler} />
+                    <CheckoutButton offerName={selectedOffer?.name} checkoutData={selectedGiftCard} />
                 </div>
             </div>
         </section>

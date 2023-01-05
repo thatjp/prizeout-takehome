@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Loader, Alert } from './common';
+import { Loader } from './common';
 import { Widget } from '../modules/widget';
 import { windowResizeHandler } from '../utils/event-handlers';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,6 @@ import { useAppSelector } from '../hooks';
 import {
     selectIsCheckoutPanelCollapsed,
     selectIsMobilePortrait,
-    selectAlertState,
     setIsCheckoutPanelCollapsed,
     setIsMobilePortrait,
 } from '../slices/common-slice';
@@ -20,7 +19,6 @@ export const App: React.FC = (): React.ReactElement => {
     const dispatch = useDispatch<AppDispatch>();
     const isCheckoutPanelCollapsedView = useAppSelector(selectIsCheckoutPanelCollapsed);
     const isMobilePortraitView = useAppSelector(selectIsMobilePortrait);
-    const isAlertState = useAppSelector(selectAlertState);
 
     const windowResize = () => {
         windowResizeHandler(dispatch, isCheckoutPanelCollapsedView, isMobilePortraitView);
@@ -45,7 +43,6 @@ export const App: React.FC = (): React.ReactElement => {
                 <Widget />
             </div>
             <Loader />
-            {isAlertState ? <Alert message={isAlertState.message} type={isAlertState.alertType} /> : null}
         </div>
     );
 };
